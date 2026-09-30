@@ -33,4 +33,20 @@ export class FormLayoutsPage extends HelperBase{
         await inlineForm.getByRole('button', { name: "Submit" }).click()
     }
 
+    /** 
+     * This method submits the form with labels and placeholders with user full name, email and password
+     * @param FirstName - Valid test user first name
+     * @param LastName - Valid test user last name
+     * @param Email - Valid test user email
+     * @param Website - Valid test user website
+     */
+    @step
+    async submitBlockForm(FirstName: string, LastName: string, Email: string, Website: string) {
+        const formWithLabelsAndPlaceholders = this.page.locator('nb-card', { hasText: "Block Form" })
+        await formWithLabelsAndPlaceholders.getByPlaceholder('First Name').fill(FirstName)
+        await formWithLabelsAndPlaceholders.getByPlaceholder('Last Name').fill(LastName)
+        await formWithLabelsAndPlaceholders.getByPlaceholder('Email').fill(Email)
+        await formWithLabelsAndPlaceholders.getByPlaceholder('Website').fill(Website)
+        await formWithLabelsAndPlaceholders.getByRole('button', { name: "Submit" }).click()
+    }
 }
