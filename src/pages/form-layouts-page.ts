@@ -34,7 +34,7 @@ export class FormLayoutsPage extends HelperBase{
     }
 
     /** 
-     * This method submits the form with labels and placeholders with user full name, email and password
+     * This method submits the form with labels and placeholders with user full name, email and website 
      * @param FirstName - Valid test user first name
      * @param LastName - Valid test user last name
      * @param Email - Valid test user email
@@ -48,5 +48,21 @@ export class FormLayoutsPage extends HelperBase{
         await formWithLabelsAndPlaceholders.getByPlaceholder('Email').fill(Email)
         await formWithLabelsAndPlaceholders.getByPlaceholder('Website').fill(Website)
         await formWithLabelsAndPlaceholders.getByRole('button', { name: "Submit" }).click()
+    }
+
+   /**  
+    * This method submits the horizontal form with user email, password and remember me checkbox is selected
+    * @param Email - Valid test user email
+    * @param Password - Valid test user password
+    * @param rememberMeCheckbox - Pass `true` to select Remember Me checkbox
+    */
+   async submitHorizontalForm(Email: string, Password: string, rememberMeCheckbox: boolean = false) {
+        const horizontalForm = this.page.locator('nb-card', { hasText: "Horizontal form" })
+        await horizontalForm.getByPlaceholder('Email').fill(Email)
+        await horizontalForm.getByPlaceholder('Password').fill(Password)
+        if (rememberMeCheckbox) {
+            await horizontalForm.getByRole('checkbox', { name: "Remember me" }).check({ force: true })
+        }
+        await horizontalForm.getByRole('button', { name: "Sign in" }).click()
     }
 }
