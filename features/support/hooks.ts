@@ -8,7 +8,10 @@ loadEnv({ path: resolve(process.cwd(), '.env') })
 setDefaultTimeout(30_000)
 
 Before(async function (this: PlaywrightWorld) {
-    this.browser = await chromium.launch()
+    this.browser = await chromium.launch({
+        headless: process.env.HEADLESS !== 'false',
+        slowMo: Number(process.env.SLOW_MO ?? 0),
+    })
     const context = await this.browser.newContext()
     this.page = await context.newPage()
 })
